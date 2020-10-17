@@ -4,9 +4,10 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+// const UserModel = require('./models/user.model');
 
-const { config } = require('./config');
-const sequelize = require('./db');
+const { config } = require('./configs');
+const { sequelize } = require('./db');
 
 const serverRequestLimit = rateLimit({
   windowMs: config.serverRateLimits.period,
@@ -35,7 +36,11 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.use('/api', apiRouter);
+// app.get('/api', (async (req, res) => {
+//   const users = await UserModel.findAll({});
+//   console.log(users);
+//   res.json(users);
+// }));
 
 app.use('*', (err, req, res) => {
   res
