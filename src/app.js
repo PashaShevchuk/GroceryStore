@@ -4,8 +4,8 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-// const UserModel = require('./models/user.model');
 
+const apiRouter = require('./routes/api.router');
 const { config } = require('./configs');
 const { sequelize } = require('./db');
 
@@ -36,11 +36,7 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.get('/api', (async (req, res) => {
-//   const users = await UserModel.findAll({});
-//   console.log(users);
-//   res.json(users);
-// }));
+app.use('/api', apiRouter);
 
 app.use('*', (err, req, res) => {
   res
