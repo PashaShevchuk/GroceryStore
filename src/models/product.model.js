@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-const { dbTablesEnum, productTypeEnum } = require('../configs');
+const { dbTablesEnum, productTypeEnum } = require('../constants');
 const { sequelize } = require('../db');
 const UserModel = require('./user.model');
 

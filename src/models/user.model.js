@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-const { dbTablesEnum } = require('../configs');
+const { dbTablesEnum } = require('../constants');
 const { sequelize } = require('../db');
 
 class UserModel extends Model {

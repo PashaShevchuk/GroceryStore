@@ -9,4 +9,6 @@ module.exports = {
       attributes: ['id', 'name', 'surname', 'email'],
     });
   },
+
+  findOneByParams: (findObject) => UserModel.findOne({ where: findObject }),
 };

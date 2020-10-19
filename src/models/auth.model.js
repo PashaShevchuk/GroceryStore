@@ -1,13 +1,13 @@
 const { Model, DataTypes } = require('sequelize');
 
 const { sequelize } = require('../db');
-const { dbTablesEnum } = require('../configs');
+const { dbTablesEnum } = require('../constants');
 const UserModel = require('./user.model');
 
-class OauthModel extends Model {
+class AuthModel extends Model {
 }
 
-OauthModel.init({
+AuthModel.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -34,11 +34,11 @@ OauthModel.init({
 
 }, {
   sequelize,
-  modelName: 'oauth',
-  tableName: dbTablesEnum.OAUTH,
+  modelName: 'auth',
+  tableName: dbTablesEnum.AUTH,
   timestamps: false,
 });
 
-OauthModel.belongsTo(UserModel, { foreignKey: 'user_id' });
+AuthModel.belongsTo(UserModel, { foreignKey: 'user_id' });
 
-module.exports = OauthModel;
+module.exports = AuthModel;

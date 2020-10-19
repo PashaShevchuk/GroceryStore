@@ -4,7 +4,7 @@ const { dbTablesEnum } = require('../../configs');
 
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.createTable(dbTablesEnum.OAUTH, {
+    await queryInterface.createTable(dbTablesEnum.AUTH, {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -34,6 +34,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable(dbTablesEnum.OAUTH);
+    await queryInterface.dropTable(dbTablesEnum.AUTH);
   },
 };
