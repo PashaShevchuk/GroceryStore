@@ -1,4 +1,5 @@
 const { productService } = require('../services');
+const { resStatusCodesEnum: { OK } } = require('../constants');
 
 module.exports = {
   getAll: async (req, res, next) => {
@@ -10,7 +11,19 @@ module.exports = {
       next(e);
     }
   },
-  detOne: async (req, res, next) => {
+
+  deleteOne: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const messageAboutDeletingProduct = await productService.deleteById(id);
+
+      res.status(OK).send(messageAboutDeletingProduct);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  getOne: async (req, res, next) => {
     try {
       const { product } = req;
 

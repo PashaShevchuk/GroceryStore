@@ -2,7 +2,7 @@ const { productService } = require('../../services');
 
 module.exports = async (req, res, next) => {
   try {
-    const id = +req.params.id;
+    const { id } = req.params;
 
     const product = await productService.findOneById(id);
 

@@ -53,6 +53,7 @@ ProductModel.init({
   user_id: {
     type: DataTypes.INTEGER,
     foreignKey: true,
+    allowNull: false,
   },
 }, {
   sequelize,
