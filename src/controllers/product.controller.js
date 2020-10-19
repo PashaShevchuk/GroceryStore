@@ -10,4 +10,13 @@ module.exports = {
       next(e);
     }
   },
+  detOne: async (req, res, next) => {
+    try {
+      const { product } = req;
+
+      res.json(product);
+    } catch (e) {
+      next(e);
+    }
+  },
 };
