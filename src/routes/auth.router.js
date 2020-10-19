@@ -5,7 +5,7 @@ const {
   authMiddleware: { checkTokenType },
   userMiddleware: { checkEmailAndPasswordValidity, checkHashUserPassword, checkIsUserExistByEmail },
 } = require('../middlewares');
-const { constants: { ACCESS } } = require('../constants');
+const { constants: { ACCESS, REFRESH } } = require('../constants');
 
 const authRouter = Router();
 
@@ -21,6 +21,12 @@ authRouter.post(
   '/logout',
   checkTokenType(ACCESS),
   authController.logout,
+);
+
+authRouter.post(
+  '/refresh',
+  checkTokenType(REFRESH),
+  authController.refreshToken,
 );
 
 module.exports = authRouter;

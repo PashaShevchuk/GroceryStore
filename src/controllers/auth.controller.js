@@ -31,4 +31,19 @@ module.exports = {
       next(e);
     }
   },
+
+  refreshToken: async (req, res, next) => {
+    try {
+      const { user } = req;
+      const token = req.get(AUTHORIZATION);
+      const newTokensPair = createTokens();
+
+      await authService.deleteByParams({ refresh_token: token });
+      await authService.createTokenPair({ ...newTokensPair, user_id: user.id });
+
+      res.json(newTokensPair);
+    } catch (e) {
+      next(e);
+    }
+  },
 };
