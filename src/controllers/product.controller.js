@@ -44,4 +44,17 @@ module.exports = {
       next(e);
     }
   },
+
+  updateOne: async (req, res, next) => {
+    try {
+      const { product, user } = req;
+      const productToUpdate = { ...product, ...req.body, user_id: user.id };
+
+      const updatedProduct = await productService.updateById(+req.params.id, productToUpdate);
+
+      res.json(updatedProduct);
+    } catch (e) {
+      next(e);
+    }
+  },
 };

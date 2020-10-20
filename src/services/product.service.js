@@ -8,4 +8,10 @@ module.exports = {
   findOneById: (id) => ProductModel.findOne({ where: { id } }),
 
   getAll: () => ProductModel.findAll(),
+
+  updateById: async (id, productObject) => {
+    await ProductModel.update(productObject, { where: { id } });
+
+    return ProductModel.findOne({ where: { id } });
+  },
 };
