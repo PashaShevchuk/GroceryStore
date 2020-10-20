@@ -16,12 +16,16 @@ const serverRequestLimit = rateLimit({
 
 const app = express();
 
-if (process.env.ENV === 'DEV') {
+if (config.ENV === 'DEV') {
   app.use(cors());
   app.use(morgan('dev'));
 } else {
   app.use(cors({
     origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+      }
+
       if (config.WHITE_LIST.split(';').includes(origin)) {
         callback(null, true);
       } else {

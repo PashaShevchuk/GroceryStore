@@ -2,11 +2,13 @@ const { productService } = require('../services');
 const { resStatusCodesEnum: { OK } } = require('../constants');
 
 module.exports = {
-  getAll: async (req, res, next) => {
+  createOne: async (req, res, next) => {
     try {
-      const products = await productService.getAll();
+      const { body: product, user } = req;
 
-      res.json(products);
+      const newProduct = await productService.createOne({ ...product, user_id: user.id });
+
+      res.json(newProduct);
     } catch (e) {
       next(e);
     }
@@ -18,6 +20,16 @@ module.exports = {
       const messageAboutDeletingProduct = await productService.deleteById(id);
 
       res.status(OK).send(messageAboutDeletingProduct);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  getAll: async (req, res, next) => {
+    try {
+      const products = await productService.getAll();
+
+      res.json(products);
     } catch (e) {
       next(e);
     }

@@ -4,10 +4,17 @@ const { constants: { ACCESS } } = require('../constants');
 const { productController } = require('../controllers');
 const {
   authMiddleware: { checkTokenType },
-  productMiddleware: { checkIsProductExistById, checkIsUserCanDeleteProduct },
+  productMiddleware: { checkIsProductExistById, checkIsUserCanDeleteProduct, newProductValidation },
 } = require('../middlewares');
 
 const productRouter = Router();
+
+productRouter.post(
+  '/',
+  checkTokenType(ACCESS),
+  newProductValidation,
+  productController.createOne,
+);
 
 productRouter.get(
   '/',
