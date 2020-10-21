@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 
 const apiRouter = require('./routes/api.router');
+const { appError: { NOT_ALLOWED_BY_CORS, NOT_FOUND } } = require('./errors');
 const { config } = require('./configs');
 const { cronRun } = require('./cron-jobs');
 const { sequelize } = require('./db');
@@ -30,7 +31,7 @@ if (config.ENV === 'DEV') {
       if (config.WHITE_LIST.split(';').includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error(NOT_ALLOWED_BY_CORS));
       }
     },
   }));
@@ -43,12 +44,13 @@ app.use(express.json());
 
 app.use('/api', apiRouter);
 
-app.use('*', (err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+app.use('*', (err, req, res, next) => {
   res
     .status(err.status || 404)
     .json({
-      message: err.message || 'NOT FOUND',
-      code: err.code || '',
+      message: err.message || NOT_FOUND,
+      code: err.customCode || 404,
     });
 });
 
