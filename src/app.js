@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 
 const apiRouter = require('./routes/api.router');
 const { config } = require('./configs');
+const { cronRun } = require('./cron-jobs');
 const { sequelize } = require('./db');
 
 const serverRequestLimit = rateLimit({
@@ -59,6 +60,7 @@ sequelize
         console.log(err);
       }
       console.log(`Server listening on ${config.PORT}`);
+      cronRun();
     });
   })
   .catch((reason) => {
