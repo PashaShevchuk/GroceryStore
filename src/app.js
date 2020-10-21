@@ -10,6 +10,7 @@ const { appError: { NOT_ALLOWED_BY_CORS, NOT_FOUND } } = require('./errors');
 const { config } = require('./configs');
 const { cronRun } = require('./cron-jobs');
 const { sequelize } = require('./db');
+const { winston } = require('./logger');
 
 const serverRequestLimit = rateLimit({
   windowMs: config.serverRateLimits.period,
@@ -17,6 +18,8 @@ const serverRequestLimit = rateLimit({
 });
 
 const app = express();
+
+const logger = winston('APP');
 
 if (config.ENV === 'DEV') {
   app.use(cors());
@@ -46,6 +49,7 @@ app.use('/api', apiRouter);
 
 // eslint-disable-next-line no-unused-vars
 app.use('*', (err, req, res, next) => {
+  logger.error(err);
   res
     .status(err.status || 404)
     .json({
@@ -59,6 +63,7 @@ sequelize
   .then(() => {
     app.listen(config.PORT, (err) => {
       if (err) {
+        logger.info(err);
         console.log(err);
       }
       console.log(`Server listening on ${config.PORT}`);
@@ -70,9 +75,11 @@ sequelize
   });
 
 process.on('uncaughtException', (err) => {
+  logger.info(err);
   console.log(err);
 });
 
 process.on('unhandledRejection', (err) => {
+  logger.info(err);
   console.log(err);
 });

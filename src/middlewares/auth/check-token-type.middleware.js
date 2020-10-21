@@ -9,6 +9,9 @@ const {
 } = require('../../constants');
 const { CustomError, authError: { BAD_REQUEST_NO_TOKEN, UNAUTHORIZED_NOT_VALID_TOKEN } } = require('../../errors');
 const { resStatusCodesEnum: { BAD_REQUEST, UNAUTHORIZED } } = require('../../constants');
+const { winston } = require('../../logger');
+
+const logger = winston('CHECK-TOKEN-TYPE');
 
 module.exports = (tokenType) => async (req, res, next) => {
   try {
@@ -27,6 +30,7 @@ module.exports = (tokenType) => async (req, res, next) => {
         break;
 
       default:
+        logger.info({ message: UNAUTHORIZED_NOT_VALID_TOKEN.message });
         return next(new CustomError(
           UNAUTHORIZED_NOT_VALID_TOKEN.message,
           UNAUTHORIZED,
@@ -37,6 +41,7 @@ module.exports = (tokenType) => async (req, res, next) => {
     const token = req.get(AUTHORIZATION);
 
     if (!token) {
+      logger.info({ message: BAD_REQUEST_NO_TOKEN.message });
       return next(new CustomError(
         BAD_REQUEST_NO_TOKEN.message,
         BAD_REQUEST,
@@ -46,6 +51,7 @@ module.exports = (tokenType) => async (req, res, next) => {
 
     jwt.verify(token, secretWord, (err) => {
       if (err) {
+        logger.info({ message: UNAUTHORIZED_NOT_VALID_TOKEN.message });
         return next(new CustomError(
           UNAUTHORIZED_NOT_VALID_TOKEN.message,
           UNAUTHORIZED,
@@ -57,6 +63,7 @@ module.exports = (tokenType) => async (req, res, next) => {
     const tokenWithUser = await authService.getByParams({ [keyName]: token });
 
     if (!tokenWithUser) {
+      logger.info({ message: UNAUTHORIZED_NOT_VALID_TOKEN.message });
       return next(new CustomError(
         UNAUTHORIZED_NOT_VALID_TOKEN.message,
         UNAUTHORIZED,

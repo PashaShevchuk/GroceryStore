@@ -1,0 +1,28 @@
+{
+  "status": 400,
+  "customCode": 4002,
+  "level": "error",
+  "label": "APP",
+  "timestamp": "2020-10-21 22:28:13"
+}
+{
+  "status": 401,
+  "customCode": 4011,
+  "level": "error",
+  "label": "APP",
+  "timestamp": "2020-10-21 22:36:15"
+}
+{
+  "status": 404,
+  "customCode": 4041,
+  "level": "error",
+  "label": "APP",
+  "timestamp": "2020-10-21 22:39:36"
+}
+{
+  "status": 403,
+  "customCode": 4031,
+  "level": "error",
+  "label": "APP",
+  "timestamp": "2020-10-21 22:39:42"
+}
