@@ -21,6 +21,7 @@ productRouter.post(
   newProductValidation,
   productController.createOne,
 );
+
 // read
 productRouter.get(
   '/',
@@ -31,6 +32,7 @@ productRouter.get(
   checkIsProductExistById,
   productController.getOne,
 );
+
 // update
 productRouter.patch(
   '/:id',
@@ -40,6 +42,7 @@ productRouter.patch(
   updateProductValidation,
   productController.updateOne,
 );
+
 // delete
 productRouter.delete(
   '/:id',
