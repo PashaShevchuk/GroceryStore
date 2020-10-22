@@ -71,6 +71,7 @@ sequelize
     });
   })
   .catch((reason) => {
+    logger.info(reason);
     console.log(reason);
   });
 

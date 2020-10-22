@@ -15,41 +15,23 @@ const {
 const productRouter = Router();
 
 // create
-productRouter.post(
-  '/',
-  checkTokenType(ACCESS),
-  newProductValidation,
-  productController.createOne,
-);
+productRouter.post('/', checkTokenType(ACCESS), newProductValidation, productController.createOne);
 
 // read
-productRouter.get(
-  '/',
-  productController.getAll,
-);
-productRouter.get(
-  '/:id',
-  checkIsProductExistById,
-  productController.getOne,
-);
+productRouter.get('/', productController.getAll);
+
+// for get, patch, delete - '/:id'
+productRouter.use('/:id', checkIsProductExistById);
+
+productRouter.get('/:id', productController.getOne);
+
+// for patch, delete - '/:id' + checkTokenType
+productRouter.use('/:id', checkTokenType(ACCESS), checkIsUserCanModifyProduct);
 
 // update
-productRouter.patch(
-  '/:id',
-  checkTokenType(ACCESS),
-  checkIsProductExistById,
-  checkIsUserCanModifyProduct,
-  updateProductValidation,
-  productController.updateOne,
-);
+productRouter.patch('/:id', updateProductValidation, productController.updateOne);
 
 // delete
-productRouter.delete(
-  '/:id',
-  checkTokenType(ACCESS),
-  checkIsProductExistById,
-  checkIsUserCanModifyProduct,
-  productController.deleteOne,
-);
+productRouter.delete('/:id', productController.deleteOne);
 
 module.exports = productRouter;
