@@ -26,3 +26,10 @@
   "label": "APP",
   "timestamp": "2020-10-21 22:39:42"
 }
+{
+  "status": 400,
+  "customCode": 4001,
+  "level": "error",
+  "label": "APP",
+  "timestamp": "2020-10-22 19:57:16"
+}

@@ -137,13 +137,13 @@
 					}
 				],
 				"url": {
-					"raw": "{{api_host}}/product/3",
+					"raw": "{{api_host}}/product/8",
 					"host": [
 						"{{api_host}}"
 					],
 					"path": [
 						"product",
-						"3"
+						"8"
 					]
 				}
 			},
@@ -233,6 +233,68 @@
 					"path": [
 						"product",
 						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"pasha608@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_host}}/users/password/forgot",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"users",
+						"password",
+						"forgot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDMzODU2MTMsImV4cCI6MTYwMzM4OTIxM30.CGI7B0x-8OWcsdd0dK-dR43KN-x26_bbB9QHQPz-SNw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"Pasha2020\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_host}}/users/password/reset",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"users",
+						"password",
+						"reset"
 					]
 				}
 			},

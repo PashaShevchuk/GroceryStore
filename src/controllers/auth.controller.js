@@ -1,3 +1,4 @@
+const { actionEnum: { USER_AUTH } } = require('../constants');
 const { authService } = require('../services');
 const { createTokens } = require('../helpers');
 const { constants: { AUTHORIZATION } } = require('../constants');
@@ -7,7 +8,7 @@ module.exports = {
   login: async (req, res, next) => {
     try {
       const { user } = req;
-      const tokens = createTokens();
+      const tokens = createTokens(USER_AUTH);
 
       await authService.createTokenPair({
         ...tokens,
@@ -36,7 +37,7 @@ module.exports = {
     try {
       const { user } = req;
       const token = req.get(AUTHORIZATION);
-      const newTokensPair = createTokens();
+      const newTokensPair = createTokens(USER_AUTH);
 
       await authService.deleteByParams({ refresh_token: token });
       await authService.createTokenPair({ ...newTokensPair, user_id: user.id });

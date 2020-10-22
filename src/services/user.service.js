@@ -11,4 +11,8 @@ module.exports = {
   },
 
   findOneByParams: (findObject) => UserModel.findOne({ where: findObject }),
+
+  addTokenById: (id, token) => UserModel.update({ token }, { where: { id } }),
+
+  updateById: (id, updateObject) => UserModel.update(updateObject, { where: { id } }),
 };
